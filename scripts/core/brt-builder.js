@@ -29,6 +29,14 @@ export class BRTBuilder {
     let msgData = { roll: this.mainRoll, messageData: {}};
     if (rollMode) addRollModeToChatData(msgData.messageData, rollMode);
     await this.table.toMessage(results, msgData);
+
+    results.forEach(element => {
+      if (element.data.collection == "Macro"){
+        const macro = game.macros.find(m => m.name === element.data.text); 
+        macro.execute();
+      }
+      console.log(element)
+    });
   }
 
   /**
